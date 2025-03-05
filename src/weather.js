@@ -3,6 +3,7 @@ class Weather {
         this.location = location;
         this.startDate = startDate;
         this.endDate = endDate;
+        this.weatherJSON;
     }
 
     async getWeatherJSON() {
@@ -20,13 +21,32 @@ class Weather {
             )
             weather = await weatherPromise.json();
         }
+        console.log(weather)
         return weather;
     }
 
-    async getTodaysWeather() {
+    async getTodayWeather() {
         const weatherJSON = await this.getWeatherJSON();
-        const todaysWeather = weatherJSON.days[0].conditions;
-        return todaysWeather;
+        const todayWeather = weatherJSON.days[0].conditions;
+        return todayWeather;
+    }
+
+    async getNowWeather() {
+        const weatherJSON = await this.getWeatherJSON();
+        const nowWeather = weatherJSON.currentConditions.conditions;
+        return nowWeather;
+    }
+
+    async getNowTemp() {
+        const weatherJSON = await this.getWeatherJSON();
+        const nowTemp = weatherJSON.currentConditions.temp;
+        return nowTemp;
+    }
+
+    async getNowIcon() {
+        const weatherJSON = await this.getWeatherJSON();
+        const nowIcon = weatherJSON.currentConditions.icon;
+        return nowIcon;
     }
 
 }
