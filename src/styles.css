@@ -1,0 +1,44 @@
+/* My default styles—a bit of a reset and a bit of a normalization, based on 
+["A Modern CSS Reset" by Josh W. Comeau](https://www.joshwcomeau.com/css/custom-css-reset/).
+Remember to use `*property*:revert` to return specific elements to browser defaults. 
+Use `@import url("./cobbland-style.css");` to import into the default stylesheet.
+(Note: Nothing is done to fix apple product specific problems; y'all are on your own.) */
+
+*, *::before, *::after {
+  box-sizing: border-box;
+}
+
+* {
+  margin: 0;
+}
+
+body {
+  line-height: 1.5; /* This requires customizing the line height for larger text. */
+}
+
+img, picture, video, canvas, svg {
+  display: block;
+  max-width: 100%; /* Use `max-width: revert;` if an image is meant to overflow */
+}
+
+input, button, textarea, select {
+  font: inherit;
+}
+
+p, h1, h2, h3, h4, h5, h6 {
+  overflow-wrap: break-word;
+  font-family: system-ui;
+  padding-top: 1em;
+} /* Consider applying this to ALL elements. Also, consider adding `hyphen: auto;`. */ 
+
+p {
+  text-wrap: pretty; /* May have a performance impact. */
+} /* Remember to use `p` instead of `div` in your HTML if you want this to work. 
+Also, consider setting `max-width: 60ch` or smaller. (ch being the width of "0" 
+in given `font-size`. (Maybe this belongs on a parent element, though.)*/
+
+h1, h2, h3, h4, h5, h6 {
+  text-wrap: balance;
+}
+
+/* End default styles. */
