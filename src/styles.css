@@ -12,6 +12,10 @@ Use `@import url("./cobbland-style.css");` to import into the default stylesheet
   margin: 0;
 }
 
+body, html {
+  height: 100%;
+}
+
 body {
   line-height: 1.5; /* This requires customizing the line height for larger text. */
 }
