@@ -5,6 +5,9 @@ import { weatherIcons } from "./icons";
 const pageBody = document.querySelector("body");
 const weatherSearch = document.querySelector("form");
 const weatherSearchInput = document.querySelector("input");
+const tempSwitch = document.querySelector('.temp-switch');
+const fButton = document.querySelector('.f');
+const cButton = document.querySelector(".c");
 const locationDOM = document.querySelector(".city-name");
 const weatherContainerNow = document.querySelector('.weather-container-now');
 const weatherContainerToday = document.querySelector('.weather-container-today');
@@ -28,23 +31,21 @@ const tempColors = {
     140: '#D84315', // 140°F - 150°F
 };
 
-let weatherLocation = 'lynchburg,va'
+let weatherLocation = 'New York, NY'
 let weather;
 
 async function buildWeather(weatherLocation) {
     try {
-        // now
         weather = new Weather(weatherLocation);
         await weather.getWeatherJSON();
         const weatherInfo = weather.getWeatherInfo();
-        console.log(weatherInfo)
         locationDOM.innerText = weatherInfo.location;
         buildWeatherHelper('now', weatherInfo, weatherContainerNow);
         buildWeatherHelper('today', weatherInfo, weatherContainerToday);
         buildWeatherHelper('tomorrow', weatherInfo, weatherContainerTomorrow);
         buildWeatherHelper('next', weatherInfo, weatherContainerNext)
     } catch (err) {
-        console.log(`Can't get weather for ${weatherLocation}. Error: ${err}`);
+        locationDOM.innerText = `Can't get weather for ${weatherLocation}.`;
     }
 }
 
@@ -54,14 +55,62 @@ function buildWeatherHelper(day, weatherInfo, container) {
     const iconDOM = container.querySelector('.icon')
     weatherDOM.innerText = weatherInfo[day].condition;
     const nowTemp = weatherInfo[day].temp;
-    tempDOM.innerText = `${Math.round(nowTemp)}°F`;
+    tempDOM.innerText = `${Math.round(nowTemp)}`;
+    tempDOM.classList.add('f');
+    fButton.classList.add('active');
+    tempDOM.classList.remove('c');
+    cButton.classList.remove('active');
     const roundedTemp = Math.floor(nowTemp / 10) * 10;
     pageBody.style["background-color"] = tempColors[roundedTemp];
     const icon = weatherInfo[day].icon;
     iconDOM.innerHTML = `<img src="${weatherIcons[icon]}" alt="${icon}">`;
 }
 
+function switchFC(tempDOM) {
+    const fTemp = tempDOM.innerText;
+    const celsius = (fTemp - 32) * (5/9);
+    tempDOM.innerText = Math.round(celsius);
+    tempDOM.classList.toggle('f')
+    tempDOM.classList.toggle('c')
+}
+
+function switchCF(tempDOM) {
+    const cTemp = tempDOM.innerText;
+    const fahrenheit = (cTemp * (9/5)) + 32;
+    tempDOM.innerText = Math.round(fahrenheit);
+    tempDOM.classList.toggle('f')
+    tempDOM.classList.toggle('c')
+}
+
 buildWeather(weatherLocation);
+
+tempSwitch.addEventListener("click", (button) => {
+    if (
+        button.target === fButton &&
+        !button.target.classList.value.includes('active')
+    ) {
+        button.stopPropagation()
+        button.target.classList.toggle('active');
+        cButton.classList.toggle('active');
+        let allTempDOMS = document.querySelectorAll('.temp');
+        allTempDOMS = Array.from(allTempDOMS);
+        for (const DOM in allTempDOMS) {
+            switchCF(allTempDOMS[DOM])
+        }
+    } else if (
+        button.target === cButton &&
+        !button.target.classList.value.includes('active')
+    ) {
+        button.stopPropagation()
+        button.target.classList.toggle('active');
+        fButton.classList.toggle('active');
+        let allTempDOMS = document.querySelectorAll('.temp');
+        allTempDOMS = Array.from(allTempDOMS);
+        for (const DOM in allTempDOMS) {
+            switchFC(allTempDOMS[DOM])
+        }
+    }
+})
 
 weatherSearch.addEventListener("submit", (submit) =>{
     submit.preventDefault();

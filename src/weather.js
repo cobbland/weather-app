@@ -21,7 +21,6 @@ class Weather {
             )
             weather = await weatherPromise.json();
         }
-        console.log(weather)
         this.weatherJSON = weather;
         return weather;
     }
