@@ -66,7 +66,7 @@ function buildWeatherHelper(day, weatherInfo, container) {
     tempDOM.classList.remove('c');
     cButton.classList.remove('active');
     const roundedTemp = Math.floor(nowTemp / 10) * 10;
-    pageBody.style["background-color"] = tempColors[roundedTemp];
+    pageBody.style["background-image"] = tempColors[roundedTemp];
     const icon = weatherInfo[day].icon;
     iconDOM.innerHTML = `<img src="${weatherIcons[icon]}" alt="${icon}">`;
 }
