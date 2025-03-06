@@ -67,4 +67,5 @@ weatherSearch.addEventListener("submit", (submit) =>{
     submit.preventDefault();
     weatherLocation = weatherSearchInput.value;
     buildWeather(weatherLocation);
+    weatherSearchInput.value = '';
 })
