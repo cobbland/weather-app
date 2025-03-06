@@ -14,21 +14,26 @@ const weatherContainerToday = document.querySelector('.weather-container-today')
 const weatherContainerTomorrow = document.querySelector('.weather-container-tomorrow');
 const weatherContainerNext = document.querySelector('.weather-container-next');
 const tempColors = {
-    0: '#E0F7FA',   // 0°F - 10°F
-    10: '#B2EBF2',  // 10°F - 20°F
-    20: '#80DEEA',  // 20°F - 30°F
-    30: '#4DD0E1',  // 30°F - 40°F
-    40: '#26C6DA',  // 40°F - 50°F
-    50: '#00BCD4',  // 50°F - 60°F
-    60: '#FFEE58',  // 60°F - 70°F
-    70: '#FFD54F',  // 70°F - 80°F
-    80: '#FFB74D',  // 80°F - 90°F
-    90: '#FF8A65',  // 90°F - 100°F
-    100: '#FF7043', // 100°F - 110°F
-    110: '#FF5722', // 110°F - 120°F
-    120: '#F4511E', // 120°F - 130°F
-    130: '#E64A19', // 130°F - 140°F
-    140: '#D84315', // 140°F - 150°F
+    '-50': 'linear-gradient(135deg, #001F3F, #003366)', // -50°F - -40°F
+    '-40': 'linear-gradient(135deg, #003366, #00509E)', // -40°F - -30°F
+    '-30': 'linear-gradient(135deg, #00509E, #0077B6)', // -30°F - -20°F
+    '-20': 'linear-gradient(135deg, #0077B6, #0096C7)', // -20°F - -10°F
+    '-10': 'linear-gradient(135deg, #0096C7, #00B4D8)', // -10°F - 0°F
+    0: 'linear-gradient(135deg, #00B4D8, #00ACC1)',     // 0°F - 10°F
+    10: 'linear-gradient(135deg, #00ACC1, #00BCD4)',    // 10°F - 20°F
+    20: 'linear-gradient(135deg, #00BCD4, #26C6DA)',    // 20°F - 30°F
+    30: 'linear-gradient(135deg, #26C6DA, #4DD0E1)',    // 30°F - 40°F
+    40: 'linear-gradient(135deg, #4DD0E1, #80DEEA)',    // 40°F - 50°F
+    50: 'linear-gradient(135deg, #80DEEA, #B2EBF2)',    // 50°F - 60°F
+    60: 'linear-gradient(135deg, #FFEE58, #FFD54F)',    // 60°F - 70°F
+    70: 'linear-gradient(135deg, #FFD54F, #FFB74D)',    // 70°F - 80°F
+    80: 'linear-gradient(135deg, #FFB74D, #FF8A65)',    // 80°F - 90°F
+    90: 'linear-gradient(135deg, #FF8A65, #FF7043)',    // 90°F - 100°F
+    100: 'linear-gradient(135deg, #FF7043, #FF5722)',   // 100°F - 110°F
+    110: 'linear-gradient(135deg, #FF5722, #F4511E)',   // 110°F - 120°F
+    120: 'linear-gradient(135deg, #F4511E, #E64A19)',   // 120°F - 130°F
+    130: 'linear-gradient(135deg, #E64A19, #D84315)',   // 130°F - 140°F
+    140: 'linear-gradient(135deg, #D84315, #BF360C)',   // 140°F - 150°F
 };
 
 let weatherLocation = 'New York, NY'

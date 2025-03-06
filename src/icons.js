@@ -44,6 +44,9 @@ weatherIcons["showers-night"] = showersNight;
 import sleet from "./icons/sleet.svg";
 weatherIcons["sleet"] = sleet;
 
+import snow from "./icons/snow.svg";
+weatherIcons["snow"] = snow;
+
 import snowShowersDay from "./icons/snow-showers-day.svg";
 weatherIcons["snow-showers-day"] = snowShowersDay;
 
