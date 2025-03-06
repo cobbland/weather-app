@@ -3,15 +3,13 @@ import { Weather } from "./weather";
 import { weatherIcons } from "./icons";
 
 const pageBody = document.querySelector("body");
-const weatherContainer = document.querySelector('.weather-container');
-const weatherDOM = document.querySelector(".weather");
-const tempDOM = document.querySelector(".temp");
-const iconDOM = document.querySelector(".icon");
+const weatherSearch = document.querySelector("form");
+const weatherSearchInput = document.querySelector("input");
 const locationDOM = document.querySelector(".city-name");
-
-let weatherLocation = 'lynchburg,va'
-let weather;
-
+const weatherContainerNow = document.querySelector('.weather-container-now');
+const weatherContainerToday = document.querySelector('.weather-container-today');
+const weatherContainerTomorrow = document.querySelector('.weather-container-tomorrow');
+const weatherContainerNext = document.querySelector('.weather-container-next');
 const tempColors = {
     0: '#E0F7FA',   // 0°F - 10°F
     10: '#B2EBF2',  // 10°F - 20°F
@@ -30,21 +28,43 @@ const tempColors = {
     140: '#D84315', // 140°F - 150°F
 };
 
+let weatherLocation = 'lynchburg,va'
+let weather;
+
 async function buildWeather(weatherLocation) {
     try {
+        // now
         weather = new Weather(weatherLocation);
         await weather.getWeatherJSON();
-        locationDOM.innerText = weather.getLocation();
-        weatherDOM.innerText = weather.getNowWeather();
-        const nowTemp = weather.getNowTemp();
-        tempDOM.innerText = `${Math.round(nowTemp)}°F`;
-        const roundedTemp = Math.floor(nowTemp / 10) * 10;
-        pageBody.style["background-color"] = tempColors[roundedTemp];
-        const icon = weather.getNowIcon();
-        iconDOM.innerHTML = `<img src="${weatherIcons[icon]}" alt="${icon}">`;
+        const weatherInfo = weather.getWeatherInfo();
+        console.log(weatherInfo)
+        locationDOM.innerText = weatherInfo.location;
+        buildWeatherHelper('now', weatherInfo, weatherContainerNow);
+        buildWeatherHelper('today', weatherInfo, weatherContainerToday);
+        buildWeatherHelper('tomorrow', weatherInfo, weatherContainerTomorrow);
+        buildWeatherHelper('next', weatherInfo, weatherContainerNext)
     } catch (err) {
         console.log(`Can't get weather for ${weatherLocation}. Error: ${err}`);
     }
 }
 
+function buildWeatherHelper(day, weatherInfo, container) {
+    const weatherDOM = container.querySelector('.weather');
+    const tempDOM = container.querySelector('.temp');
+    const iconDOM = container.querySelector('.icon')
+    weatherDOM.innerText = weatherInfo[day].condition;
+    const nowTemp = weatherInfo[day].temp;
+    tempDOM.innerText = `${Math.round(nowTemp)}°F`;
+    const roundedTemp = Math.floor(nowTemp / 10) * 10;
+    pageBody.style["background-color"] = tempColors[roundedTemp];
+    const icon = weatherInfo[day].icon;
+    iconDOM.innerHTML = `<img src="${weatherIcons[icon]}" alt="${icon}">`;
+}
+
 buildWeather(weatherLocation);
+
+weatherSearch.addEventListener("submit", (submit) =>{
+    submit.preventDefault();
+    weatherLocation = weatherSearchInput.value;
+    buildWeather(weatherLocation);
+})

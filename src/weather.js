@@ -10,7 +10,7 @@ class Weather {
         let weather;
         if (this.startDate !== null && this.endDate !== null) {
             const weatherPromise = await fetch(
-                `https://weather.visualcrossing.com/VisualCrossingWebServices/rest/services/timeline/${this.location}?key=MBK26J9HC5S79E2LG3RTL4R2W`,
+                `https://weather.visualcrossing.com/VisualCrossingWebServices/rest/services/timeline/${this.location}/${this.startDate}/${this.endDate}?key=MBK26J9HC5S79E2LG3RTL4R2W`,
                 {mode: 'cors'}
             )
             weather = await weatherPromise.json();
@@ -26,35 +26,32 @@ class Weather {
         return weather;
     }
 
-    getLocation() {
-        const weatherLocation = this.weatherJSON.resolvedAddress;
-        return weatherLocation;
+    getWeatherInfo() {
+        const weatherInfo = {
+            location: this.weatherJSON.resolvedAddress,
+            now: {
+                condition: this.weatherJSON.currentConditions.conditions,
+                icon: this.weatherJSON.currentConditions.icon,
+                temp: this.weatherJSON.currentConditions.temp
+            },
+            today: {
+                condition: this.weatherJSON.days[0].conditions,
+                icon: this.weatherJSON.days[0].icon,
+                temp: this.weatherJSON.days[0].temp
+            },
+            tomorrow: {
+                condition: this.weatherJSON.days[1].conditions,
+                icon: this.weatherJSON.days[1].icon,
+                temp: this.weatherJSON.days[1].temp
+            },
+            next: {
+                condition: this.weatherJSON.days[2].conditions,
+                icon: this.weatherJSON.days[2].icon,
+                temp: this.weatherJSON.days[2].temp
+            }
+        };
+        return weatherInfo;
     }
-
-    getTodayWeather() {
-        // const weatherJSON = await this.getWeatherJSON();
-        const todayWeather = this.weatherJSON.days[0].conditions;
-        return todayWeather;
-    }
-
-    getNowWeather() {
-        // const weatherJSON = await this.getWeatherJSON();
-        const nowWeather = this.weatherJSON.currentConditions.conditions;
-        return nowWeather;
-    }
-
-    getNowTemp() {
-        // const weatherJSON = await this.getWeatherJSON();
-        const nowTemp = this.weatherJSON.currentConditions.temp;
-        return nowTemp;
-    }
-
-    getNowIcon() {
-        // const weatherJSON = await this.getWeatherJSON();
-        const nowIcon = this.weatherJSON.currentConditions.icon;
-        return nowIcon;
-    }
-
 }
 
 export { Weather };
