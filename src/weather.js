@@ -22,30 +22,36 @@ class Weather {
             weather = await weatherPromise.json();
         }
         console.log(weather)
+        this.weatherJSON = weather;
         return weather;
     }
 
-    async getTodayWeather() {
-        const weatherJSON = await this.getWeatherJSON();
-        const todayWeather = weatherJSON.days[0].conditions;
+    getLocation() {
+        const weatherLocation = this.weatherJSON.resolvedAddress;
+        return weatherLocation;
+    }
+
+    getTodayWeather() {
+        // const weatherJSON = await this.getWeatherJSON();
+        const todayWeather = this.weatherJSON.days[0].conditions;
         return todayWeather;
     }
 
-    async getNowWeather() {
-        const weatherJSON = await this.getWeatherJSON();
-        const nowWeather = weatherJSON.currentConditions.conditions;
+    getNowWeather() {
+        // const weatherJSON = await this.getWeatherJSON();
+        const nowWeather = this.weatherJSON.currentConditions.conditions;
         return nowWeather;
     }
 
-    async getNowTemp() {
-        const weatherJSON = await this.getWeatherJSON();
-        const nowTemp = weatherJSON.currentConditions.temp;
+    getNowTemp() {
+        // const weatherJSON = await this.getWeatherJSON();
+        const nowTemp = this.weatherJSON.currentConditions.temp;
         return nowTemp;
     }
 
-    async getNowIcon() {
-        const weatherJSON = await this.getWeatherJSON();
-        const nowIcon = weatherJSON.currentConditions.icon;
+    getNowIcon() {
+        // const weatherJSON = await this.getWeatherJSON();
+        const nowIcon = this.weatherJSON.currentConditions.icon;
         return nowIcon;
     }
 

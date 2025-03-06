@@ -1,9 +1,3 @@
-/* My default styles—a bit of a reset and a bit of a normalization, based on 
-["A Modern CSS Reset" by Josh W. Comeau](https://www.joshwcomeau.com/css/custom-css-reset/).
-Remember to use `*property*:revert` to return specific elements to browser defaults. 
-Use `@import url("./cobbland-style.css");` to import into the default stylesheet.
-(Note: Nothing is done to fix apple product specific problems; y'all are on your own.) */
-
 *, *::before, *::after {
   box-sizing: border-box;
 }
@@ -22,7 +16,7 @@ body {
   flex-direction: column;
   justify-content: center;
   align-items: center;
-  color: white;
+  color: black;
   font-family: Arial, sans-serif;
   transition: background-color 3s ease; /* Smooth transition */
 }
@@ -52,4 +46,17 @@ h1, h2, h3, h4, h5, h6 {
   text-wrap: balance;
 }
 
-/* End default styles. */
+.weather-container {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+}
+
+.icon {
+  height: 3em;
+  margin-bottom: 0.5rem;
+}
+
+.icon > img {
+  height: 100%;
+}
